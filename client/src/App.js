@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTable, usePagination } from 'react-table';
 import axios from 'axios';
 import {
@@ -27,16 +27,12 @@ import {
 } from '@chakra-ui/icons';
 
 function CustomTable({ columns, data }) {
-    // Use the state and functions returned from useTable to build your UI
     const {
         getTableProps,
         getTableBodyProps,
         headerGroups,
         prepareRow,
-        page, // Instead of using 'rows', we'll use page,
-        // which has only the rows for the active page
-
-        // The rest of these things are super handy, too ;)
+        page,
         canPreviousPage,
         canNextPage,
         pageOptions,
@@ -55,24 +51,8 @@ function CustomTable({ columns, data }) {
         usePagination
     );
 
-    // Render the UI for your table
     return (
         <>
-            <pre>
-                <code>
-                    {JSON.stringify(
-                        {
-                            pageIndex,
-                            pageSize,
-                            pageCount,
-                            canNextPage,
-                            canPreviousPage,
-                        },
-                        null,
-                        2
-                    )}
-                </code>
-            </pre>
             <Table {...getTableProps()}>
                 <Thead>
                     {headerGroups.map((headerGroup) => (
@@ -232,10 +212,11 @@ function App() {
             const {
                 data: { response },
             } = await axios.get('user/getAll');
-            console.log(response);
             setData(response);
             return response;
-        } catch (error) {}
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     useMemo(() => {

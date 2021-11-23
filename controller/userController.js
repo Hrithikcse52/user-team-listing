@@ -41,30 +41,10 @@ const getUserAggreagate = async (req, res) => {
             },
             { $project: { fromItems: 0 } },
         ]);
-
-        console.log(response);
         res.send({ message: 'Gotcha', response });
-        // await user
-        //     .aggregate([
-        //         {
-        //             $lookup: {
-        //                 from: 'team', // collection name in db
-        //                 localField: 'email',
-        //                 foreignField: 'email',
-        //                 as: 'data',
-        //             },
-        //         },
-        //     ])
-        //     .exec(function (err, students) {
-        //         if (!err) {
-        //             console.log(students);
-        //             res.send({ message: 'Gotit', students });
-        //         }
-        //         console.log(err);
-        //     });
     } catch (error) {
         console.log('error', error);
-        res.send({ message: 'Gotit', error });
+        res.send({ message: 'Oops', error });
     }
 };
 
